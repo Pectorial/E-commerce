@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 })
 
 // Dedicated middleware for handling errors/exceptions
-app.use((req, res, next, error) => {
+app.use((error, req, res, next) => {
     res.status(error.statusCode || 500).json(error.message)
 })
 
