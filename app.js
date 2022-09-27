@@ -2,10 +2,12 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
+const ngrok = require('ngrok')
 require("dotenv/config");
 
 // Custom imports
-const connctDb = require("./Db/db");
+const connectDb = require("./Db/db");
+const authRoutes = require("./routes/authRoutes/auth");
 
 const app = express();
 
@@ -30,7 +32,12 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "POST, GET, PUT, PATCH, DELETE"
   );
+  next()
 });
+
+// Regular API's
+app.use("/auth", authRoutes)
+
 
 // Dedicated middleware for handling errors/exceptions
 app.use((error, req, res, next) => {
@@ -39,6 +46,8 @@ app.use((error, req, res, next) => {
 
 const port = process.env.PORT || 5050;
 
-connctDb(() => {
-  app.listen(port, () => console.log(`Connected to port ${port}`));
+connectDb(() => {
+  app.listen(port, () => {
+    console.log(`Connected to port ${port}`)
+  });
 });
