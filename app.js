@@ -6,6 +6,8 @@ require("dotenv/config");
 
 // Custom imports
 const connctDb = require("./Db/db");
+const authRoutes = require('./routes/auth')
+const productRoutes = require('./routes/product')
 
 const app = express();
 
@@ -31,6 +33,10 @@ app.use((req, res, next) => {
     "POST, GET, PUT, PATCH, DELETE"
   );
 });
+
+// basic route middleware
+app.use('/product', productRoutes);
+app.use('/auth', authRoutes)
 
 // Dedicated middleware for handling errors/exceptions
 app.use((error, req, res, next) => {
