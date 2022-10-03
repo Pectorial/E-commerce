@@ -1,0 +1,43 @@
+.inputTag {
+  display: flex;
+  flex-direction: column;
+  line-height: 30px;
+}
+.inputTag label {
+  color: #535350;
+}
+
+input:focus {
+    outline: none;
+}
+
+.inputTag input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #9a9a98;
+}
+
+.passwordTag {
+  display: flex;
+  flex-direction: column;
+  line-height: 30px;
+}
+
+.password_field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  border: 2px solid #9a9a98;
+}
+.password_field .input {
+    height: 100%;
+    width: 80%;
+    padding: 10px;
+    border: none;
+}
+.password_field i {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
