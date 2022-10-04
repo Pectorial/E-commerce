@@ -5,7 +5,7 @@
 @media (min-width: 481) and (max-width: 768) {
     
 } */
-@media (min-width: 200px) and (max-width: 480px) {
+@media (min-width: 200px) and (max-width: 769px) {
     .navBar {
         width: 100vw;
         height: 60px;
@@ -62,7 +62,7 @@
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 770px) {
     .navBar {
         width: 100vw;
         height: 100px;
