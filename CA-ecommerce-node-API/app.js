@@ -3,11 +3,13 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const ngrok = require('ngrok')
+// const passport = require("passport");
 require("dotenv/config");
 
 // Custom imports
 const connectDb = require("./Db/db");
 const authRoutes = require("./routes/authRoutes/auth");
+// const passportSetup = require("./middleware/passport")
 
 const app = express();
 
@@ -15,6 +17,8 @@ app.use(express.json()) // For handling json payloads... i.e request bodies in j
 app.use(express.urlencoded({ extended: false })) // For handling requests in x-www-urlencoded-form
 app.use(helmet());
 // app.use(morgan());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Configuring the server permissions for CORS protocols...
 app.use(
