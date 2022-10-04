@@ -7,6 +7,9 @@ const Navbar = () => {
     <nav className={classes.navBar}>
       <section className={classes.firstSegment}>
         <div className={classes.logo}>
+          <div className={classes.hamburger}>
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </div>
           <h2>Atarodo</h2>
           <img src={logoImg} />
         </div>

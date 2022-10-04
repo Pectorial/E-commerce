@@ -4,8 +4,10 @@ import classes from "./signup.module.css";
 import Navbar from "../../../components/navbar/navbar";
 import Input from "../../../UI/input/input";
 import googleIcon from '../../../assets/images/search.png';
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [tooglePassword, setTooglePassword] = useState("password");
 
   const [signupForm, setSignupForm] = useState({
@@ -56,9 +58,13 @@ const Signup = () => {
     setSignupForm(form);
   };
 
+  const redirectToLogin = () => {
+    navigate({pathname: "/login"});
+  }
+
   return (
     <React.Fragment>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className={classes.formbody}>
         <div
           style={{
@@ -93,7 +99,10 @@ const Signup = () => {
         <div>
           <p style={{fontSize: "14px", padding: "8px"}}>
             Already have an account?
-            <span style={{fontSize: "16px", color: "#084777", fontWeight: 500}}> Sign in</span>
+            <span 
+            style={{fontSize: "16px", color: "#084777", fontWeight: 500}}
+            onClick={redirectToLogin}
+            > Sign in</span>
           </p>
         </div>
         </div>

@@ -4,9 +4,10 @@ import classes from "./login.module.css";
 import Navbar from "../../../components/navbar/navbar";
 import Input from "../../../UI/input/input";
 import googleIcon from "../../../assets/images/search.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [tooglePassword, setTooglePassword] = useState("password");
   const [ checker,  setChecker ] = useState(true)
 
@@ -48,9 +49,13 @@ const Signup = () => {
 
   }
 
+  const redirectToSignup = () => {
+    navigate({pathname: "/signup"});
+  }
+
   return (
     <React.Fragment>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className={classes.formbody}>
         <div
           style={{
@@ -60,7 +65,7 @@ const Signup = () => {
           }}
         ></div>
         <div className={classes.inputs}>
-          <h1>Create Account</h1>
+          <h1>Sign in</h1>
           {formArranger.map((element) => (
             <div key={element.key}>
               <Input
@@ -89,11 +94,11 @@ const Signup = () => {
           ))}
         </div>
         <div className={classes.action_section}>
-          <button>Sign in</button>
+          <button style={{cursor: "pointer"}}>Sign in</button>
           <p style={{ color: "#535350", fontSize: "18px", fontWeight: "400" }}>
             OR
           </p>
-          <button className={classes.continue} onClick={googleLoginHandle}>
+          <button style={{cursor: "pointer"}} className={classes.continue} onClick={googleLoginHandle}>
             <img src={googleIcon} height={25} width={25} /> Sign in with Google
           </button>
           <div
@@ -103,6 +108,7 @@ const Signup = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-start",
+              cursor: "pointer"
             }}
             onClick={() => setChecker(!checker)}
           >
@@ -117,7 +123,8 @@ const Signup = () => {
           <p style={{ fontSize: "14px", padding: "8px" }}>
             Don't have an account?
             <span
-              style={{ fontSize: "16px", color: "#084777", fontWeight: 500 }}
+              style={{ fontSize: "16px", color: "#084777", fontWeight: 500, cursor: "pointer" }}
+              onClick={redirectToSignup}
             >
               {" "}
               Create one
