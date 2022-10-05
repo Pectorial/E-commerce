@@ -29,6 +29,7 @@
 .action_section button:nth-child(1):disabled {
   background-color: #aaa;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .continue {

@@ -24,6 +24,15 @@
      border-radius: 4px;
      font-weight: 500;
 }
+.action_section button:nth-child(1):hover {
+  background-color: #055fa4;
+  box-shadow: inset 2px 3px 12px #003258;
+}
+.action_section button:nth-child(1):disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 .continue {
     display: flex;
