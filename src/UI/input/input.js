@@ -3,6 +3,13 @@ import classes from "./input.module.css";
 
 const Input = (props) => {
   let inputElement;
+  let inputStyle = [classes.input];
+  let passwordInputStyle = [classes.password_field];
+
+  if (props.touched && !(props.valid)) {
+    passwordInputStyle = [classes.password_field, classes.invalidInput]
+    inputStyle = [classes.input, classes.invalidInput]
+  }
 
   switch (props.elementType) {
     case "input":
@@ -10,12 +17,13 @@ const Input = (props) => {
         return (inputElement = (
           <div className={classes.passwordTag}>
             <label>{props.elementConfig.placeholder}</label>
-            <div className={classes.password_field}>
+            <div className={passwordInputStyle.join(" ")}>
               <input
                 className={classes.input}
                 value={props.value}
                 type={props.elementConfig.type}
                 placeholder={props.elementConfig.placeholder}
+                onChange={props.changed}
               />
               <i
                 onClick={props.tooglePassword}
@@ -30,10 +38,11 @@ const Input = (props) => {
         <div className={classes.inputTag}>
           <label>{props.elementConfig.placeholder}</label>
           <input
-            className={classes.input}
+            className={inputStyle.join(" ")}
             value={props.value}
             type={props.elementConfig.type}
             placeholder={props.elementConfig.placeholder}
+            onChange={props.changed}
           />
         </div>
       );

@@ -16,6 +16,10 @@ input:focus {
   border-radius: 4px;
   border: 2px solid #9a9a98;
 }
+.invalidInput {
+  background-color: rgb(255, 212, 207);
+  border: 2px solid rgb(229, 149, 140);
+}
 
 .passwordTag {
   display: flex;

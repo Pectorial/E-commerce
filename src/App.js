@@ -6,6 +6,7 @@ import Login from './pages/auth/login/login';
 import PasswordReset from './pages/auth/passwordReset/passwordReset';
 
 import { Route, Routes } from 'react-router-dom';
+import StagedForm from './components/StagedForm/StagedForm';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path='/signup' element= { <Signup /> } />
       <Route path='/login' element= { <Login /> } />
       <Route path='/forgot-password' element={ <PasswordReset /> } />
+      <Route path='/staged-form' element={ <StagedForm /> } />
     </Routes>
   )
 }

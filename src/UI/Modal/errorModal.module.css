@@ -1,0 +1,29 @@
+.modalBody {
+    height: 50px;
+    width: 30%;
+    margin: 20px auto 0 auto;
+    border-radius: 4px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 1s ease-out;
+}
+
+.successStyle {
+    background-color: rgb(158, 255, 158);
+    border: 2px solid rgb(85, 225, 85);
+}
+
+.failStyle {
+   background-color: rgb(255, 212, 207);
+   border: 2px solid rgb(229, 149, 140);
+}
+
+@media (max-width: 480px) {
+    .modalBody {
+        width: 280px;
+    }
+}
