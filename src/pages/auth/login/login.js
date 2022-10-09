@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
+
+import axios from "axios";
 
 import classes from "./login.module.css";
 import ErrorModal from "../../../UI/Modal/errorModal";
@@ -10,9 +12,22 @@ import { Link, useNavigate } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate();
   const [tooglePassword, setTooglePassword] = useState("password");
+  const [ modalState, setModalState ] = useState(null)
   const [checker, setChecker] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formIsValid, setFormIsValid] = useState(true);
+
+  const modalView = useRef()
+
+  useEffect(() => {
+    if (modalState) {
+      setTimeout(() => {
+        setModalState(null)
+      }, 3000);
+    }
+
+    modalView.current.scrollIntoView()
+  }, [modalState])
 
   const [signupForm, setSignupForm] = useState({
     email: {
@@ -108,12 +123,32 @@ const Signup = () => {
     setFormIsValid(!validForm)
   };
   
-  const formSubmitter = () => {
+  const formSubmitter = async () => {
     let newForm = {};
     for (const keys in signupForm) {
+      if (keys === 'validForm') continue
       newForm[keys] = signupForm[keys].value;
     }
-    console.log(newForm)
+    // Send Login Request
+    try {
+      const response = await axios.post(
+        `http://localhost:5050/auth/login`,
+        JSON.stringify(newForm),
+        { headers: { "Content-Type": "application/json"} }
+      );
+      setModalState({
+        error: false,
+        success: true,
+        message: response.data.message
+      })
+      console.log(response.data)
+    } catch (err) {
+      setModalState({
+        error: true,
+        success: false,
+        message: err.response.data
+      })
+    }
   }
   
     const formArranger = [];
@@ -128,14 +163,17 @@ const Signup = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <ErrorModal success error show={showModal} />
+      <div ref={modalView}></div>
+      <ErrorModal show={modalState} error={modalState?.error} success={modalState?.success}>
+        {modalState?.message}
+      </ErrorModal>
       <div className={classes.formbody}>
         <div
           style={{
             fontSize: "18px",
             lineHeight: "100px",
             fontFamily: "PT Sans",
-            marginTop: showModal ? "0px" : "-50px",
+            // marginTop: showModal ? "0px" : "-50px",
           }}
         ></div>
         <div className={classes.inputs}>

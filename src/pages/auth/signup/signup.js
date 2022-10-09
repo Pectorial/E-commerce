@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
+
+import axios from "axios";
 
 import classes from "./signup.module.css";
 import Navbar from "../../../components/navbar/navbar";
@@ -6,13 +8,29 @@ import Input from "../../../UI/input/input";
 import googleIcon from "../../../assets/images/search.png";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../../UI/Modal/errorModal";
+// import "dotenv/config";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [tooglePassword, setTooglePassword] = useState("password");
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [ modalState, setModalState ] = useState(null)
+  // const [errorMessage, setErrorMessage] = useState(null);
+  // const [successMessage, setSuccessMessage] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
   const [formIsValid, setFormIsValid] = useState(true);
+
+  const modalView = useRef()
+
+  useEffect(() => {
+    if (modalState) {
+      setTimeout(() => {
+        setModalState(null)
+      }, 3000);
+    }
+
+    modalView.current.scrollIntoView()
+  }, [modalState])
+  
 
   const [signupForm, setSignupForm] = useState({
     email: {
@@ -28,11 +46,11 @@ const Signup = () => {
       value: "",
       touched: false,
     },
-    mobile: {
+    phoneNumber: {
       elementType: "input",
       inputConfig: {
         placeholder: "Phone Number",
-        type: "Number",
+        type: "text",
       },
       validation: {
         valid: false,
@@ -52,7 +70,7 @@ const Signup = () => {
       validation: {
         valid: false,
         required: true,
-        min: 8
+        min: 8,
       },
       value: "",
       touched: false,
@@ -72,7 +90,7 @@ const Signup = () => {
     },
     validForm: false,
   });
-  
+
   const checkInputValidity = (value, validationRules, identifier, formObj) => {
     let isValid = true;
     if (identifier === "email") {
@@ -82,15 +100,17 @@ const Signup = () => {
     }
 
     if (validationRules.min || validationRules.max) {
-      isValid = validationRules.max ? isValid && value.trim().length <= validationRules.max : isValid = true;
+      isValid = validationRules.max
+        ? isValid && value.trim().length <= validationRules.max
+        : (isValid = true);
       isValid = isValid && value.trim().length >= validationRules.min;
       isValid = isValid && value.trim() !== "";
     }
 
     if (identifier === "confirmPassword") {
-      isValid = isValid && value.trim() === formObj['password'].value;
+      isValid = isValid && value.trim() === formObj["password"].value;
     }
-    
+
     if (!validationRules.required) return true;
     if (isValid) {
       return true;
@@ -98,29 +118,31 @@ const Signup = () => {
       return false;
     }
   };
-  
+
   const inputChangedHandler = (event, identifier) => {
     let validForm = true;
     const newForm = { ...signupForm };
     const formConfigs = { ...newForm[identifier] };
     formConfigs.touched = true;
     formConfigs.value = event.target.value;
-    formConfigs.validation.valid = checkInputValidity(
-      formConfigs.value,
-      formConfigs.validation,
-      identifier,
-      newForm
-      );
-      newForm[identifier] = formConfigs;
-      setSignupForm(newForm);
-      
-      for (const keys in signupForm) {
-        if (keys === "validForm") continue;
+    formConfigs.value == ""
+      ? (formConfigs.touched = false)
+      : (formConfigs.validation.valid = checkInputValidity(
+          formConfigs.value,
+          formConfigs.validation,
+          identifier,
+          newForm
+        ));
+    newForm[identifier] = formConfigs;
+    setSignupForm(newForm);
+
+    for (const keys in signupForm) {
+      if (keys === "validForm") continue;
       validForm = validForm && signupForm[keys].validation.valid;
     }
-    setFormIsValid(!validForm)
+    setFormIsValid(!validForm);
   };
-  
+
   const passwordToogler = (identifier) => {
     setTooglePassword(tooglePassword == "text" ? "password" : "text");
     const form = { ...signupForm };
@@ -130,40 +152,62 @@ const Signup = () => {
     setSignupForm(form);
   };
 
-  const formSubmitter = () => {
+  const formSubmitter = async () => {
     let newForm = {};
     for (const keys in signupForm) {
+      if (keys === "validForm") continue;
       newForm[keys] = signupForm[keys].value;
     }
-    console.log(newForm)
-  }
-  
+    // Send Signup Request
+    try {
+      const response = await axios.post(
+        `http://localhost:5050/auth/signup`,
+        JSON.stringify(newForm),
+        { headers: { "Content-Type": "application/json"} }
+      );
+      setModalState({
+        error: false,
+        success: true,
+        message: response.data.message
+      })
+    } catch (err) {
+      setModalState({
+        error: true,
+        success: false,
+        message: err.response.data
+      })
+    }
+  };
+
   const redirectToLogin = () => {
     navigate({ pathname: "/login" });
   };
-  
-    const formArranger = [];
-    for (let eachCredential in signupForm) {
-      if (eachCredential === "validForm") continue
-      formArranger.push({
-        key: eachCredential,
-        elementConfig: signupForm[eachCredential],
-      });
-    }
-  
+
+  const formArranger = [];
+  for (let eachCredential in signupForm) {
+    if (eachCredential === "validForm") continue;
+    formArranger.push({
+      key: eachCredential,
+      elementConfig: signupForm[eachCredential],
+    });
+  }
+
   return (
     <React.Fragment>
       <Navbar />
-      <ErrorModal success error show={showModal} />
+      <div ref={modalView}></div>
+      <ErrorModal show={modalState} error={modalState?.error} success={modalState?.success}>
+        {modalState?.message}
+      </ErrorModal>
       <div className={classes.formbody}>
         <div
           style={{
             fontSize: "18px",
             lineHeight: "100px",
             fontFamily: "PT Sans",
-            marginTop: showModal ? "0px" : "-50px",
+            // marginTop: modalState ? "0px" : "-50px",
           }}
-          ></div>
+        ></div>
         <div className={classes.inputs}>
           <h1>Create Account</h1>
           {formArranger.map((element) => (
@@ -198,7 +242,9 @@ const Signup = () => {
           </p>
         </div>
         <div className={classes.action_section}>
-          <button disabled={formIsValid} onClick={formSubmitter}>Create account</button>
+          <button disabled={formIsValid} onClick={formSubmitter}>
+            Create account
+          </button>
           <p style={{ color: "#535350", fontSize: "18px", fontWeight: "400" }}>
             OR
           </p>

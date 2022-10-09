@@ -11,10 +11,10 @@ const ErrorModal = (props) => {
   }
   return (
     <main
-      style={{ textAlign: "center", color: props.success ? "green" : "red", transform: props.show ? "translateY(0)" : "translateY(-50vh)" }}
+      style={{ textAlign: "center", display: !props.show ? 'none' : "flex", color: props.success ? "green" : "red", transform: props.show ? "translateY(0)" : "translateY(-50vh)" }}
       className={errorModalClasses.join(" ")}
     >
-      {"props.children"}
+      {props.children}
     </main>
   );
 };

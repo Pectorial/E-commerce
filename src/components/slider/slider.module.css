@@ -3,6 +3,8 @@
     height: calc(100vh - 100px);
     width: 100%;
     background-color: #e5e5e5;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .slider_content {
@@ -71,7 +73,17 @@
   .slide_indicator {
     height: 10%;
     width: 100%;
-    background-color: #ccc;
+    /* background-color: #ccc; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .slide_wrapper {
+    text-align: center;
+    box-sizing: border-box;
+    width: 30%;
+    margin: 20px;
   }
 }
 
@@ -79,7 +91,7 @@
   .container_section {
     height: calc(100vh - 40px);
     width: 100%;
-    background-color: #e5e5e5;
+    background-color: #C9C9C9;
   }
   
   .slider_content {

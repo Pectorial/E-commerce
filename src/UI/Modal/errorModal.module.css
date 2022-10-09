@@ -10,6 +10,7 @@
     font-size: 18px;
     font-weight: 500;
     transition: all 1s ease-out;
+    z-index: 200;
 }
 
 .successStyle {
