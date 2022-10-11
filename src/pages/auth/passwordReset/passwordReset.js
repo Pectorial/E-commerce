@@ -4,19 +4,18 @@ import classes from "./passwordReset.module.css";
 import Navbar from "../../../components/navbar/navbar";
 import Input from "../../../UI/input/input";
 import googleIcon from "../../../assets/images/search.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, createSearchParams } from "react-router-dom";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
 
-  const [ checker,  setChecker ] = useState(true)
-
+  const [email, setEmail] = useState("")
   const [signupForm, setSignupForm] = useState({
-    mobile: {
+    email: {
       elementType: "input",
       inputConfig: {
-        placeholder: "Mobile Number or Email",
-        type: "text",
+        placeholder: "Email Address",
+        type: "email",
       }
     },
   });
@@ -29,12 +28,19 @@ const ResetPassword = () => {
     });
   }
 
-  const googleLoginHandle = () => {
-
+  const sendInstructions = () => {
+    navigate({pathname: '/password-reset-instruction', search: `?${createSearchParams({email})}`})
   }
 
-  const redirectToSignup = () => {
-    navigate({pathname: "/signup"});
+  const emailChangedHandler = (e) => {
+    let isValid = true;
+    let value = e.target.value;
+    
+    // Proper Validation takes place at the backend abeg...
+      const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      isValid = isValid && value.trim().match(emailFormat);
+      isValid = isValid && value.trim() !== "";
+      setEmail(value)
   }
 
   return (
@@ -62,12 +68,13 @@ const ResetPassword = () => {
                 elementType={element.elementConfig.elementType}
                 elementConfig={element.elementConfig.inputConfig}
                 type={element.key}
+                changed={emailChangedHandler}
               />
             </div>
           ))}
         </div>
         <div className={classes.action_section}>
-          <button style={{cursor: "pointer"}}>Send instructions</button>
+          <button onClick={sendInstructions} style={{cursor: "pointer"}}>Send instructions</button>
         </div>
         <div style={{ margin: "auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "14px", color: "#000000", fontWeight: "700" }}>
@@ -75,13 +82,11 @@ const ResetPassword = () => {
             </h2>
             <p
               style={{ fontSize: "14px"}}
-              onClick={redirectToSignup}
             >
               {" "}
               If you no more use the email address associated with your Atarodo account, you may contact 
               <span
               style={{ fontSize: "14px", color: "#084777", fontWeight: 700, cursor: "pointer" }}
-              onClick={redirectToSignup}
             > Customer Service </span> for help restoring access to your account.
             </p>
         </div>

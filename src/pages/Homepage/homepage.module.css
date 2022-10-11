@@ -1,0 +1,150 @@
+.brand_section {
+  margin: 40px auto;
+  padding: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+.brand_header {
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 400;
+  color: #2a254b;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.brand_flex {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  justify-content: space-around;
+  align-items: center;
+}
+.brand_flex div {
+  width: 260px;
+  margin-top: 50px;
+  /* background-color: #aaa; */
+}
+.brand_flex div img {
+  margin-bottom: -10px;
+}
+
+.brand_flex div h4 {
+  color: #2a254b;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 10px;
+  font-style: normal;
+}
+
+.brand_flex div p {
+  color: #2a254b;
+  font-size: 16px;
+  font-weight: 400;
+}
+.products_category {
+  display: flex;
+  flex-flow: column;
+  box-sizing: border-box;
+  margin: 30px auto;
+  padding: 50px;
+}
+.products_category_nav {
+  width: 400px;
+}
+.products_category_nav h3 {
+  color: #3d3d3d;
+  /* text-align: center; */
+  font-size: 40px;
+  font-weight: 600;
+}
+.products_category_nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+  padding: 0;
+  gap: 10px;
+}
+.products_category_nav ul li {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px;
+  list-style-type: none;
+  background-color: #d2cdff;
+  transition: all 0.3s ease-out;
+  /* transition-delay: 0.1s; */
+}
+.products_category_nav ul li:hover {
+  outline: none;
+  background-color: #c3bcfc;
+  transform: scale(1.08);
+}
+.product_list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  /* padding: 20px 0; */
+  width: 100%;
+  height: 500px;
+  /* background-color: red; */
+  box-sizing: border-box;
+}
+
+@media (min-width: 200px) and (max-width: 480px) {
+  .brand_section {
+    margin: 10px auto;
+  }
+  .brand_header h3 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .brand_flex {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    /* background-color: red; */
+  }
+  .brand_flex div {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 1px 3px 6px #d2cdff71;
+    width: 100%;
+    /* background-color: #aaa; */
+  }
+  .products_category {
+    margin: 10px auto;
+    width: 100%;
+    padding: 0;
+  }
+  .products_category_nav {
+    width: 100%;
+    margin: auto;
+  }
+  .products_category_nav h3 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 600;
+    color: #2a254b;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  .products_category_nav ul {
+    padding: 0 20px;
+  }
+  .products_category_nav ul li {
+    padding: 8px 10px;
+  }
+  .product_list {
+    height: 300px;
+  }
+}

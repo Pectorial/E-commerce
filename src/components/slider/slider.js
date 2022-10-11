@@ -46,22 +46,16 @@ const SlideWrapper = styled.div`
 const BannerSlider = forwardRef((props, ref) => {
 
   let [slideIndex, setSlideIndex] = useState(1);
-  setInterval(() => {
-    let currentslide = slideIndex;
-    if(currentslide === 3) {
-        return setSlideIndex(1)
-    }
-    currentslide += 1
-    setSlideIndex(currentslide)
-  }, 5000);
-
   // setInterval(() => {
-  //     if (slideIndex === 3) {
-  //         return setSlideIndex(1)
-  //     }
-  //     setSlideIndex(3)
-  //     console.log(slideIndex)
-  // }, 1000);
+  //   let currentslide = slideIndex;
+  //   if(currentslide === 3) {
+  //       return setSlideIndex(1)
+  //   }
+  //   currentslide += 1
+  //   setSlideIndex(currentslide)
+  // }, 5000);
+
+
   return (
     <section className={classes.container_section}>
       <div className={classes.slider_content}>
@@ -74,7 +68,7 @@ const BannerSlider = forwardRef((props, ref) => {
             </div>
           </div>
         ) : null}
-        {slideIndex == 2 ? (
+        {/* {slideIndex == 2 ? (
           <div className={classes.slider_one}>
             <div className={classes.slide_info}>
               <h4>Fenty Two Serum</h4>
@@ -91,10 +85,10 @@ const BannerSlider = forwardRef((props, ref) => {
               <button>Buy Now</button>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
 
-      <div className={classes.slide_indicator}>
+      {/* <div className={classes.slide_indicator}>
         <SlideWrapper className={classes.slide_wrapper}>
           <div className="slide_timer">{slideIndex == 1 && <div></div>}</div>
           <p className={slideIndex == 1 ? "slide_text_active" : "slide_text_inactive"}>Next day as standard</p>
@@ -107,7 +101,7 @@ const BannerSlider = forwardRef((props, ref) => {
           <div className="slide_timer">{slideIndex == 3 && <div></div>}</div>
           <p className={slideIndex == 3 ? "slide_text_active" : "slide_text_inactive"}>Next day as standard</p>
         </SlideWrapper>
-      </div>
+      </div> */}
     </section>
   );
 });
